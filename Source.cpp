@@ -25,6 +25,12 @@ using namespace std;
 #include "textureLoader.hpp"
 #include "vboindexer.hpp"
 #include "control.hpp"
+#include <Windows.h>
+
+//extern "C" {
+//  _declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+//}
+
 const unsigned int SCR_WIDTH = 1920;///<Screen Width
 const unsigned int SCR_HEIGHT = 1080;///<Screen Height
 static int componentcount = 21;///<Number of imported components/obj files
@@ -313,12 +319,16 @@ void initVAO() {
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
+
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
     glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
     glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
     glGenBuffers(1, &elementbuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, elecount[componentcount - 1][3] * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
